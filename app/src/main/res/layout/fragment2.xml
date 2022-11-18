@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BookActivity">
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:fontFamily="@font/gmarketsans"
+        android:text="BORA 가계부 쓰기"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:background="#5107b0"
+        android:textSize="30sp" />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:fontFamily="@font/gmarketsans"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:button="@null"
+            android:background="@drawable/selector_radio_button"
+            android:textColor="@drawable/selector_radio_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/gmarketsans"
+            android:textSize="20sp"
+            android:text="수입" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:button="@null"
+            android:background="@drawable/selector_radio_button"
+            android:textColor="@drawable/selector_radio_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/gmarketsans"
+            android:textSize="20sp"
+            android:text="지출" />
+
+        <RadioButton
+            android:id="@+id/radio3"
+            android:button="@null"
+            android:background="@drawable/selector_radio_button"
+            android:textColor="@drawable/selector_radio_text"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/gmarketsans"
+            android:textSize="20sp"
+            android:text="이체" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/iow"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:fontFamily="@font/gmarketsans"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:contextClickable="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Spinner
+            android:id="@+id/bk_year"
+            android:padding="10dp"
+            android:layout_width="130dp"
+            android:fontFamily="@font/gmarketsans"
+            android:gravity="fill_horizontal"
+            android:layout_height="60dp"
+            android:contextClickable="true"/>
+        <Spinner
+            android:id="@+id/bk_month"
+            android:padding="10dp"
+            android:layout_width="130dp"
+            android:gravity="fill_horizontal"
+            android:fontFamily="@font/gmarketsans"
+            android:layout_height="60dp"
+            android:contextClickable="true"/>
+        <Spinner
+            android:id="@+id/bk_day"
+            android:padding="10dp"
+            android:layout_width="130dp"
+            android:gravity="fill_horizontal"
+            android:fontFamily="@font/gmarketsans"
+            android:layout_height="60dp"
+            android:contextClickable="true"/>
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/category"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:fontFamily="@font/gmarketsans"
+        android:textAlignment="center"
+        android:contextClickable="true" />
+
+    <EditText
+        android:id="@+id/bk_money"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:fontFamily="@font/gmarketsans"
+        android:hint="금액" />
+    <EditText
+        android:id="@+id/memo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/gmarketsans"
+        android:padding="10dp"
+        android:hint="메모" />
+
+
+</LinearLayout>
