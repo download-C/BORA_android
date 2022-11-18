@@ -3,7 +3,9 @@ package com.example.borabook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,14 +17,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class BookActivity extends AppCompatActivity implements OnTabItemSelectedListener{
 
     private String tag = "메인";
-    Fragment1 fragment1; // 왼쪽 가계부 목록 화면
-    Fragment2 fragment2; // 오른쪽 가계부 쓰기 화면
-    BottomNavigationView bottomNavigation; // 하단 네비
+    private Fragment1 fragment1; // 왼쪽 가계부 목록 화면
+    private Fragment2 fragment2; // 오른쪽 가계부 쓰기 화면
+    private BottomNavigationView bottomNavigation; // 하단 네비
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
+
+        // loginID를 가져와서 이 앱에서만 사용 가능하도록
+        Context context = fragment2.getActivity();
+        pref = context.getSharedPreferences("loginID", Context.MODE_PRIVATE);
 
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
@@ -48,8 +55,6 @@ public class BookActivity extends AppCompatActivity implements OnTabItemSelected
                     }
                 }
         );
-
-
     }
 
     public void onTabSelected(int position) {

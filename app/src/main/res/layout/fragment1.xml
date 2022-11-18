@@ -16,27 +16,20 @@
 
         <TextView
             android:id="@+id/align"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="18dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/gmarketsans"
             android:text="BORA 미니 가계부"
+            android:textAlignment="center"
             android:textColor="#5107B0"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/todayWriteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="273dp"
-            android:background="@drawable/select_button"
-            android:text="오늘 쓰기" />
-
+            android:textSize="40sp" />
 
     </RelativeLayout>
 
@@ -48,15 +41,35 @@
         app:mcv_selectionColor="#a362f8"
         app:mcv_showOtherDates="other_months"
         android:showWeekNumber="false" />
-
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="401dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="8dp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/gmarketsans"
+            android:gravity="center_vertical"
+            android:text="수입: 0원"
+            android:textColor="#01b3e9"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/gmarketsans"
+            android:gravity="center_vertical"
+            android:text="지출: 0원"
+            android:textColor="#e93b01"
+            android:textSize="15sp" />
+    </RelativeLayout>
 
 </LinearLayout>

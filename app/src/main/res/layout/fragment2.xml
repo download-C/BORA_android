@@ -29,6 +29,7 @@
         <RadioButton
             android:id="@+id/radio1"
             android:button="@null"
+            android:layout_margin="10dp"
             android:background="@drawable/selector_radio_button"
             android:textColor="@drawable/selector_radio_text"
             android:layout_width="100dp"
@@ -41,6 +42,7 @@
         <RadioButton
             android:id="@+id/radio2"
             android:button="@null"
+            android:layout_margin="10dp"
             android:background="@drawable/selector_radio_button"
             android:textColor="@drawable/selector_radio_text"
             android:layout_width="100dp"
@@ -53,6 +55,7 @@
         <RadioButton
             android:id="@+id/radio3"
             android:button="@null"
+            android:layout_margin="10dp"
             android:background="@drawable/selector_radio_button"
             android:textColor="@drawable/selector_radio_text"
             android:layout_width="100dp"
@@ -116,20 +119,38 @@
 
     <EditText
         android:id="@+id/bk_money"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:singleLine="true"
         android:layout_margin="10dp"
-        android:padding="10dp"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="60dp"
         android:fontFamily="@font/gmarketsans"
         android:hint="금액" />
     <EditText
         android:id="@+id/memo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
         android:layout_margin="10dp"
         android:fontFamily="@font/gmarketsans"
-        android:padding="10dp"
         android:hint="메모" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/writeBtn"
+            android:layout_centerInParent="true"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:background="@drawable/select_button"
+            android:gravity="center"
+            android:text="가계부 쓰기" />
+    </RelativeLayout>
 
 
 </LinearLayout>
