@@ -8,6 +8,17 @@
     android:orientation="vertical"
     tools:context=".Fragment1">
 
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:background="@drawable/select_button"
+        android:text="로그아웃"
+        android:textSize="10sp"
+        android:layout_gravity="right"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,56 +31,46 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
             android:fontFamily="@font/gmarketsans"
             android:text="BORA 미니 가계부"
             android:textAlignment="center"
             android:textColor="#5107B0"
-            android:textSize="40sp" />
+            android:textSize="30sp" />
 
     </RelativeLayout>
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
+        app:mcv_tileHeight="50dp"
+        app:mcv_tileWidth="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="0dp"
         app:mcv_selectionColor="#a362f8"
         app:mcv_showOtherDates="other_months"
         android:showWeekNumber="false" />
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:visibility="visible">
         <TextView
             android:layout_width="180dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
             android:fontFamily="@font/gmarketsans"
-            android:gravity="center_vertical"
             android:text="수입: 0원"
             android:textColor="#01b3e9"
             android:textSize="15sp" />
 
         <TextView
             android:layout_width="180dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
+            android:layout_height="40dp"
             android:layout_marginRight="10dp"
             android:fontFamily="@font/gmarketsans"
-            android:gravity="center_vertical"
             android:text="지출: 0원"
             android:textColor="#e93b01"
             android:textSize="15sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

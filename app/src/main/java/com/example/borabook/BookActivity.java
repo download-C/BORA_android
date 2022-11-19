@@ -28,9 +28,6 @@ public class BookActivity extends AppCompatActivity implements OnTabItemSelected
         setContentView(R.layout.activity_book);
 
         // loginID를 가져와서 이 앱에서만 사용 가능하도록
-        Context context = fragment2.getActivity();
-        pref = context.getSharedPreferences("loginID", Context.MODE_PRIVATE);
-
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
 
