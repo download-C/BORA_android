@@ -27,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
     Button login_btn;
     TextView tv1;
 
-    XmlPullParserFactory factory = null;
-    XmlPullParser xpp= null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,28 +44,31 @@ public class MainActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        String urlpath = "http://192.168.6.133:8088/android/login?"
+                        String urlpath = "http://10.0.2.2:8088/android/login?"
                                 + "id=" + et1.getText().toString() + "&pw=" + et2.getText().toString();
                         final String str = requestPost(urlpath);
-//                        if(str != "") {
-//                            try {
-//                                JSONObject jsonObject = new JSONObject(str);
-//                                String name = jsonObject.getString("name");
-//                                Log.i("mytag", name);
-//                                tv1.setText(name);
-//                                if (name != "") {
+                        if(str != "") {
+                            try {
+                                JSONObject jsonObject = new JSONObject(str);
+                                Log.i("main: ",jsonObject.toString());
+                                String loginID = jsonObject.getString("loginID");
+                                String nick = jsonObject.getString("nick");
+                                Log.i("mytag", nick);
+                                tv1.setText("loginID: "+loginID+", nick: "+nick);
+                                if (loginID != "") {
+                                    Log.i("로그인 ", "로그인 성공, BookActivity로 전환");
                                     Intent intent = new Intent(getApplicationContext(), BookActivity.class);
                                     startActivity(intent);
                                     finish();
-//                                } else {
-//                                    Toast.makeText(MainActivity.this, "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "서버 오류. 잠시 후 다시 시작해주세요.", Toast.LENGTH_LONG).show();
-//                        }
+                                } else {
+                                    Toast.makeText(MainActivity.this, "아이디가 없거나 아이디 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "서버 오류. 잠시 후 다시 시작해주세요.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }).start();
             }// onClick()

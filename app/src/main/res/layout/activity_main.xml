@@ -61,7 +61,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkbox"
+                android:id="@+id/autoLogin"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="130dp" />
