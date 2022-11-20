@@ -48,4 +48,6 @@ dependencies {
         exclude module: "httpclient"
     }
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // Http통신 라이브러리
+    implementation 'com.android.volley:volley:1.2.1'
 }
