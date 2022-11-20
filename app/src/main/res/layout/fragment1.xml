@@ -72,5 +72,9 @@
             android:textColor="#e93b01"
             android:textSize="15sp" />
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detailList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

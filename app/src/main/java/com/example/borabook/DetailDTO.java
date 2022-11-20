@@ -1,47 +1,12 @@
 package com.example.borabook;
 
 public class DetailDTO {
-    int bk_year;
-    int bk_month;
-    int bk_day;
-    String id;
-    String bk_iow;
-    String bk_group;
-    String bk_category;
-    int bk_money;
-    String bk_memo;
 
-    public int getBk_year() {
-        return bk_year;
-    }
-
-    public void setBk_year(int bk_year) {
-        this.bk_year = bk_year;
-    }
-
-    public int getBk_month() {
-        return bk_month;
-    }
-
-    public void setBk_month(int bk_month) {
-        this.bk_month = bk_month;
-    }
-
-    public int getBk_day() {
-        return bk_day;
-    }
-
-    public void setBk_day(int bk_day) {
-        this.bk_day = bk_day;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    private String bk_iow;
+    private String bk_group;
+    private String bk_category;
+    private int bk_money;
+    private String bk_memo;
 
     public String getBk_iow() {
         return bk_iow;
@@ -86,11 +51,7 @@ public class DetailDTO {
     @Override
     public String toString() {
         return "DetailDTO{" +
-                "bk_year=" + bk_year +
-                ", bk_month=" + bk_month +
-                ", bk_day=" + bk_day +
-                ", id='" + id + '\'' +
-                ", bk_iow='" + bk_iow + '\'' +
+                "bk_iow='" + bk_iow + '\'' +
                 ", bk_group='" + bk_group + '\'' +
                 ", bk_category='" + bk_category + '\'' +
                 ", bk_money=" + bk_money +
