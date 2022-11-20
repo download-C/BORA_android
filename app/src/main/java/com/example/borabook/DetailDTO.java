@@ -1,12 +1,29 @@
 package com.example.borabook;
 
 public class DetailDTO {
-
+    private BookDTO book;
+    private int bk_day;
     private String bk_iow;
     private String bk_group;
     private String bk_category;
     private int bk_money;
     private String bk_memo;
+
+    public BookDTO getBook() {
+        return book;
+    }
+
+    public void setBook(BookDTO book) {
+        this.book = book;
+    }
+
+    public int getBk_day() {
+        return bk_day;
+    }
+
+    public void setBk_day(int bk_day) {
+        this.bk_day = bk_day;
+    }
 
     public String getBk_iow() {
         return bk_iow;
@@ -51,7 +68,9 @@ public class DetailDTO {
     @Override
     public String toString() {
         return "DetailDTO{" +
-                "bk_iow='" + bk_iow + '\'' +
+                "book=" + book +
+                ", bk_day=" + bk_day +
+                ", bk_iow='" + bk_iow + '\'' +
                 ", bk_group='" + bk_group + '\'' +
                 ", bk_category='" + bk_category + '\'' +
                 ", bk_money=" + bk_money +
