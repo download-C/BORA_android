@@ -40,7 +40,8 @@
         android:background="@color/white"
         android:layout_margin="20dp"
         android:padding="10dp"
-        android:hint="아이디를 입력하세용가리🐉🐉"
+        android:fontFamily="@font/gmarketsans"
+        android:hint="아이디를 입력하세요"
         android:text="" />
 
     <EditText
@@ -49,6 +50,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:padding="10dp"
+        android:fontFamily="@font/gmarketsans"
         android:background="@color/white"
         android:hint="비밀번호를 입력하세요"
         android:inputType="textPassword"
@@ -81,9 +83,11 @@
         android:id="@+id/loginBtn"
         android:layout_width="150dp"
         android:background="@drawable/select_button"
+        android:fontFamily="@font/gmarketsans"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textSize="20dp"
         android:text="로그인" />
     <TextView
         android:id="@+id/tv1"

@@ -1,10 +1,13 @@
 package com.example.borabook;
 
+import static com.example.borabook.R.layout.*;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,7 +87,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //---------------------------------------정상----------------------------------------
         // 가계부 쓰기 프래그먼트 띄우기
-        view = inflater.inflate(R.layout.fragment2, container, false);
+        view = inflater.inflate(fragment2, container, false);
 //---------------------------------------정상----------------------------------------
         // 오늘 날짜 불러오기
         today = new Date(System.currentTimeMillis());
@@ -213,7 +217,11 @@ public class Fragment2 extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 bk_category = categorySpinner.getItemAtPosition(i).toString();
                 Log.i("선택한 카테고리 ", bk_category);
-                detail.setBk_category(bk_category);
+                if(bk_category!="카테고리 없음") {
+                    detail.setBk_category(bk_category);
+                } else {
+                    detail.setBk_category("");
+                }
                 Log.i("set category", detail + "");
             }
 
@@ -245,7 +253,7 @@ public class Fragment2 extends Fragment {
         bk_yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(view.getContext(), "선택한 연: " + bk_yearSpinner.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(), "선택한 연: " + bk_yearSpinner.getItemAtPosition(i), Toast.LENGTH_SHORT).show();
                 String bk_year = bk_yearSpinner.getItemAtPosition(i).toString().substring(0, 5);
                 Log.i("선택한 연 ", bk_year + "");
                 book.setBk_year(Integer.parseInt(bk_year.substring(0, 4)));
@@ -296,16 +304,15 @@ public class Fragment2 extends Fragment {
 
         // 가계부 쓰기 버튼
 
-
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getActivity(), "글쓰기 버튼 누름", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "글쓰기 버튼 누름", Toast.LENGTH_SHORT).show();
 //---------------------------------------정상----------------------------------------                
               // 유효성 체크
                 if(bk_moneyEt.getText().toString().trim().equals("")){
-                    Toast.makeText(getActivity(), "금액을 입력해주세요", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "금액을 입력해주세요", Toast.LENGTH_SHORT).show();
                  } else{
                     detail.setBk_money(bk_moneyEt.getText().toString());
                     Log.i("set money", detail+"");
@@ -315,13 +322,13 @@ public class Fragment2 extends Fragment {
 //                if(bk_memoEt!=null) {
                 if (bk_memoEt.getText().toString() != null) {
                     if (bk_memoEt.getText().toString().trim().equals("")) {
-                        Toast.makeText(getActivity(), "메모를 입력해주세요", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "메모를 입력해주세요", Toast.LENGTH_SHORT).show();
                     }else {
                         detail.setBk_memo(bk_memoEt.getText().toString());
                         Log.i("set memo", detail+"");
                     }
                 } else {
-                    Toast.makeText(getActivity(),"메모 널값", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(),"메모 널값", Toast.LENGTH_SHORT).show();
                 }
 
                 detail.setBook(book);
@@ -333,11 +340,20 @@ public class Fragment2 extends Fragment {
                     public void run() {
                         try {
                             requestPost(url, detail.toString());
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }).start();
+                Toast toast = Toast.makeText(getActivity(), "가계부 쓰기 성공!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.show();
+
+                bk_moneyEt.setText("");
+                bk_memoEt.setText("");
 
             }
         });

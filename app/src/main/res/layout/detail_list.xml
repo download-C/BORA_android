@@ -10,40 +10,41 @@
             android:id="@+id/list_iow"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/gmarketsans"
             android:text="항목"
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            android:gravity="center"
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/list_group"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/gmarketsans"
             android:text="그룹"
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            android:gravity="center"
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/list_category"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/gmarketsans"
             android:text="카테고리"
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            android:gravity="center"
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/list_money"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/gmarketsans"
             android:text="금액"
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            android:gravity="center"
+            android:textSize="12sp" />
         <TextView
             android:id="@+id/list_memo"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:autoSizeTextType="uniform"
+            android:fontFamily="@font/gmarketsans"
             android:text="메모"
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            android:gravity="center"
+            android:textSize="12sp" />
 
 </LinearLayout>

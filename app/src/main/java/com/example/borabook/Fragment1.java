@@ -33,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class Fragment1 extends Fragment {
 
     private Button logoutBtn;
     int selectYear, selectMonth, selectDay;
-
+    DecimalFormat myFormatter = new DecimalFormat("###,###");
     SharedPreferences sp;
 
     ListView listView;
@@ -66,6 +67,28 @@ public class Fragment1 extends Fragment {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("로그아웃").setMessage("로그아웃 하시겠습니까?")
+                        .setPositiveButton("로그아웃", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences sp = getActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor spEdit = sp.edit();
+                                spEdit.clear();
+                                spEdit.commit();
+
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
                 SharedPreferences sp = getActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor spEditor = sp.edit();
                 spEditor.remove("autoLogin");
@@ -117,7 +140,7 @@ public class Fragment1 extends Fragment {
                                         String bk_memo = jsonObject.getString("bk_memo");
                                         detail.setBk_group(bk_group);
                                         detail.setBk_category(bk_category);
-                                        detail.setBk_money(Integer.toString(bk_money));
+                                        detail.setBk_money(myFormatter.format(bk_money));
                                         detail.setBk_memo(bk_memo);
 //                                        detailList.add(String.format("%-10s%-15s%-5s%-20s%-20s",bk_iow, bk_group,bk_category, bk_money, bk_memo));
 //                                        Log.i("포맷팅된 정보"+i, detailList.get(i)+"");
