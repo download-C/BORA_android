@@ -22,14 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
@@ -98,7 +91,7 @@ public class Fragment2 extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 // 선택한 라디오 버튼에 따라 그룹, 카테고리 어레이 설정하기
-                groupSpinner = view.findViewById(R.id.iow);
+                groupSpinner = view.findViewById(R.id.group);
                 categorySpinner = view.findViewById(R.id.category);
                 ArrayAdapter iowAdapter;
                 ArrayAdapter categoryAdapter;
