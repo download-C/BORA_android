@@ -1,10 +1,13 @@
 package com.example.borabook;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,75 +16,49 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> implements OnDetailItemClickListener{
+public class DetailAdapter extends BaseAdapter {
 
-    List<DetailDTO> list = new ArrayList<>();
-    OnDetailItemClickListener listener;
+    Context dContext = null;
+    LayoutInflater dLayoutInflater = null;
+    ArrayList<DetailDTO> detailList;
 
+    public DetailAdapter(Context context, ArrayList<DetailDTO> detailList) {
+        dContext = context;
+        this.detailList = detailList;
+        dLayoutInflater = LayoutInflater.from(dContext);
+    }
 
+    @Override
+    public int getCount() {
+        return detailList.size();
+    }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public Object getItem(int i) {
+        return detailList.get(i);
+    }
 
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+        view = dLayoutInflater.inflate(R.layout.detail_list, viewGroup, false);
         TextView iow, group, category, money, memo;
+        iow= view.findViewById(R.id.list_iow);
+        group = view.findViewById(R.id.list_group);
+        category = view.findViewById(R.id.list_category);
+        money = view.findViewById(R.id.list_money);
+        memo = view.findViewById(R.id.list_memo);
 
-        public ViewHolder(@NonNull View itemView, OnDetailItemClickListener listener) {
-            super(itemView);
-            iow= itemView.findViewById(R.id.recycle_iow);
-            group = itemView.findViewById(R.id.recycle_group);
-            category = itemView.findViewById(R.id.recycle_category);
-            money = itemView.findViewById(R.id.recycle_money);
-            memo = itemView.findViewById(R.id.recycle_memo);
-        } // ViewHolder 생성자
+        iow.setText(detailList.get(i).getBk_iow());
+        group.setText(detailList.get(i).getBk_group());
+        category.setText(detailList.get(i).getBk_category());
+        money.setText(detailList.get(i).getBk_money());
+        memo.setText(detailList.get(i).getBk_memo());
 
-        public void setItem(DetailDTO dto) {
-            iow.setText(dto.getBk_iow());
-            group.setText(dto.getBk_group());
-            category.setText(dto.getBk_category());
-            money.setText(dto.getBk_money());
-            memo.setText(dto.getBk_memo());
-        }
+        return view;
     }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.detail_item, parent, false);
-        return new ViewHolder(view, listener);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       DetailDTO item = list.get(position);
-       holder.setItem(item);
-    }
-
-    @Override
-    public int getItemCount() {
-        Log.i("리스트 사이즈", ""+list.size());
-        return list.size();
-    }
-
-    @Override
-    public void onItemClick(ViewHolder holder, View view, int position) {
-
-    }
-
-    public void addItems(List<DetailDTO> items) {
-        this.list = items;
-    }
-
-    public void addItem(DetailDTO item) {
-        list.add(item);
-    }
-
-    public DetailDTO getItem(int position) {
-        return list.get(position);
-    }
-
-    public void setItem(int position, DetailDTO item) {
-        list.set(position, item);
-    }
-
-
 }

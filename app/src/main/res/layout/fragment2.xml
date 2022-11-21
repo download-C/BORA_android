@@ -127,8 +127,10 @@
         android:layout_height="50dp"
         android:fontFamily="@font/gmarketsans"
         android:hint="금액" />
+
     <EditText
         android:id="@+id/bk_memo"
+        android:text=""
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:singleLine="true"

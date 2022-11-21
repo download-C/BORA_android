@@ -1,9 +1,8 @@
 package com.example.borabook;
 
-
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,24 +16,34 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.RequestQueue;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 
 public class Fragment2 extends Fragment {
-    ArrayAdapter<CharSequence> adapter;
-    static RequestQueue queue;
+
+    SharedPreferences sp;
 
     // iow용 라디오 그룹과 라디오 버튼
     RadioGroup radioGroup;
@@ -49,7 +58,7 @@ public class Fragment2 extends Fragment {
     private Spinner bk_yearSpinner, bk_monthSpinner, bk_daySpinner;
 
     // 금액, 메모
-    private EditText bk_moneyEt;
+    private EditText bk_moneyEt, bk_memoEt;
 
     // 가계부 쓰기 버튼
     private Button writeBtn;
@@ -166,8 +175,12 @@ public class Fragment2 extends Fragment {
         }
 //---------------------------------------정상----------------------------------------
         book = new BookDTO();
+        sp = getActivity().getSharedPreferences("autoLogin", Activity.MODE_PRIVATE);
+        String loginID = sp.getString("loginID", "아이디없음");
+        book.setId(loginID);
         Log.i("book 객체 생성", book + "");
         detail = new DetailDTO();
+
         Log.i("detail 객체 생성", detail + "");
 //---------------------------------------정상----------------------------------------
         radioGroup = view.findViewById(R.id.radioGroup);
@@ -187,7 +200,9 @@ public class Fragment2 extends Fragment {
 
         // 금액, 메모 에딧텍스트
         bk_moneyEt = view.findViewById(R.id.bk_money);
-//        bk_memoEt = view.findViewById(R.id.bk_memo); // -> 이상함
+        bk_memoEt = view.findViewById(R.id.bk_memo); // -> 이상함
+
+        writeBtn = view.findViewById(R.id.writeBtn);
 
         Log.i(tag, "onCreateView");
 
@@ -209,22 +224,22 @@ public class Fragment2 extends Fragment {
         });
 
         // 선택한 그룹 정보 가져오기 -> 이상함
-        if (groupSpinner != null) {
-            groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    bk_group = groupSpinner.getItemAtPosition(i).toString();
-                    Log.i("선택한 그룹 ", bk_group);
-                    detail.setBk_group(bk_group);
-                    Log.i("set group", detail + "");
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
+        groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                bk_group = groupSpinner.getItemAtPosition(i).toString();
+                Log.i("선택한 그룹 ", bk_group);
+                detail.setBk_group(bk_group);
+                Log.i("set group", detail + "");
+            }
 
-            });
-        }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+
+        });
+
 
         // 선택한 연 정보 담기 -> 정상
         bk_yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -280,34 +295,92 @@ public class Fragment2 extends Fragment {
         });
 
         // 가계부 쓰기 버튼
-        writeBtn = view.findViewById(R.id.writeBtn);
+
 
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Toast.makeText(getActivity(), "글쓰기 버튼 누름", Toast.LENGTH_SHORT).show();
 //---------------------------------------정상----------------------------------------                
               // 유효성 체크
-                if(bk_moneyEt.getText().toString().equals("")
-                    ||bk_moneyEt.getText().toString()==null){
+                if(bk_moneyEt.getText().toString().trim().equals("")){
                     Toast.makeText(getActivity(), "금액을 입력해주세요", Toast.LENGTH_SHORT).show();
+                 } else{
+                    detail.setBk_money(bk_moneyEt.getText().toString());
+                    Log.i("set money", detail+"");
                 }
-                EditText bk_memoEt = view.findViewById(R.id.bk_memo);
-                if(bk_memoEt!=null) {
-                    if (bk_memoEt.getText() != null) {
-                        if (bk_memoEt.getText().toString().equals("")
-                                || bk_memoEt.getText().toString() == null) {
-                            Toast.makeText(getActivity(), "메모를 입력해주세요", Toast.LENGTH_SHORT).show();
-                        }
+
+
+//                if(bk_memoEt!=null) {
+                if (bk_memoEt.getText().toString() != null) {
+                    if (bk_memoEt.getText().toString().trim().equals("")) {
+                        Toast.makeText(getActivity(), "메모를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }else {
+                        detail.setBk_memo(bk_memoEt.getText().toString());
+                        Log.i("set memo", detail+"");
                     }
                 } else {
                     Toast.makeText(getActivity(),"메모 널값", Toast.LENGTH_SHORT).show();
                 }
 
-                String url = "http://192.168.35.136:8088/android/write";
+                detail.setBook(book);
+
+                String url = "http://192.168.6.133:8088/android/write";
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            requestPost(url, detail.toString());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
 
             }
         });
         return view;
     }
+
+    public void requestPost(String requestUrl, String data) {
+        String str = null;
+        BufferedWriter bw;
+        StringBuffer buff = new StringBuffer();
+        try {
+            URL url = new URL(requestUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            if (conn != null) {
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; UTF-8");
+                conn.setConnectTimeout(5000); // 연결 타임아웃 설정(5초)
+                conn.setReadTimeout(5000); // 읽기 타임아웃 설정(5초)
+                conn.setDoOutput(true);
+
+               // conn.setFixedLengthStreamingMode(data.length());
+
+                OutputStream os = conn.getOutputStream();
+                byte[] input = data.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+
+//                BufferedOutputStream out = new BufferedOutputStream(conn.getOutputStream());
+//                bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+//                Log.i("가계부 data", data+"");
+//                bw.write(data.toString());
+                os.flush();
+                int code = conn.getResponseCode();
+                Log.i("responseCode", code+"");
+                os.close();
+                conn.disconnect();
+            }
+        } catch (Exception e) {
+//            tv1.append(e.getLocalizedMessage());
+            Log.i("POST로 보내기 에러", e.getLocalizedMessage());
+        }
+
+    }
+
+
+
 }

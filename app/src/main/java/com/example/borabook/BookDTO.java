@@ -2,12 +2,21 @@ package com.example.borabook;
 
 public class BookDTO {
     private int bk_num;
+    private String id;
     private int bk_year;
     private int bk_month;
     private int bk_budget;
 
     public void setBk_num(int bk_num) {
         this.bk_num = bk_num;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getBk_year() {
@@ -36,11 +45,12 @@ public class BookDTO {
 
     @Override
     public String toString() {
-        return "BookDTO{" +
-                "bk_num=" + bk_num +
-                ", bk_year=" + bk_year +
-                ", bk_month=" + bk_month +
-                ", bk_budget=" + bk_budget +
-                '}';
+        return '{'
+                +"\"id\":"+"\""+id+"\""
+                +", \"bk_num\":"+bk_num
+                +", \"bk_year\":"+bk_year
+                +", \"bk_month\":"+bk_month
+                +", \"bk_budget\":"+bk_budget
+                +'}';
     }
 }

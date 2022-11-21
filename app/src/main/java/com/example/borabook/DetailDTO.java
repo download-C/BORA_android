@@ -6,7 +6,7 @@ public class DetailDTO {
     private String bk_iow;
     private String bk_group;
     private String bk_category;
-    private int bk_money;
+    private String bk_money;
     private String bk_memo;
 
     public BookDTO getBook() {
@@ -49,11 +49,11 @@ public class DetailDTO {
         this.bk_category = bk_category;
     }
 
-    public int getBk_money() {
+    public String getBk_money() {
         return bk_money;
     }
 
-    public void setBk_money(int bk_money) {
+    public void setBk_money(String bk_money) {
         this.bk_money = bk_money;
     }
 
@@ -67,14 +67,14 @@ public class DetailDTO {
 
     @Override
     public String toString() {
-        return "DetailDTO{" +
-                "book=" + book +
-                ", bk_day=" + bk_day +
-                ", bk_iow='" + bk_iow + '\'' +
-                ", bk_group='" + bk_group + '\'' +
-                ", bk_category='" + bk_category + '\'' +
-                ", bk_money=" + bk_money +
-                ", bk_memo='" + bk_memo + '\'' +
+        return  '{'+
+                "\"book\":" + book +
+                ", \"bk_day\":" + bk_day +
+                ", \"bk_iow\":\"" + bk_iow + '\"' +
+                ", \"bk_group\":\"" + bk_group + '\"' +
+                ", \"bk_category\":\"" + bk_category + '\"' +
+                ", \"bk_money\":" + bk_money +
+                ", \"bk_memo\":\"" + bk_memo + '\"' +
                 '}';
     }
 }
