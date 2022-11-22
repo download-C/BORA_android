@@ -107,7 +107,7 @@ public class Fragment1 extends Fragment {
                 selectMonth = date.getMonth()+1;
                 selectDay = date.getDay();
 
-                Toast.makeText(getActivity(), selectYear+"년 "+selectMonth+"월 "+selectDay+"일 선택", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), selectYear+"년 "+selectMonth+"월 "+selectDay+"일 선택", Toast.LENGTH_SHORT).show();
                 // 사용자가 선택한 날짜의 가계부 목록 서버에서 불러오기
 
                 // 선택한 연/월/일과 사용자 아이디를 파라미터로 담아서 서버 호출

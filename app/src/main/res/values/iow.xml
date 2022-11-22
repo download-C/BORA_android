@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="income">
-        <item>수입 자산 선택</item>
+        <item>자산 선택</item>
         <item>현금</item>
         <item>은행</item>
         <item>기타</item>
     </string-array>
     <string-array name="income_category">
-        <item>수입 카테고리 선택</item>
+        <item>카테고리 선택</item>
         <item>월급</item>
         <item>용돈</item>
         <item>부수입</item>
@@ -15,7 +15,7 @@
         <item>기타</item>
     </string-array>
     <string-array name="consume">
-        <item>지출 자산 선택</item>
+        <item>자산 선택</item>
         <item>현금</item>
         <item>체크카드</item>
         <item>신용카드</item>
@@ -23,7 +23,7 @@
         <item>기타</item>
     </string-array>
     <string-array name="consume_category">
-        <item>지출 카테고리 선택</item>
+        <item>카테고리 선택</item>
         <item>식비</item>
         <item>교통비</item>
         <item>편의점/마트</item>
@@ -34,7 +34,7 @@
         <item>기타</item>
     </string-array>
     <string-array name="transfer">
-        <item>이체 자산 선택</item>
+        <item>자산 선택</item>
         <item>은행1</item>
         <item>은행2</item>
         <item>기타</item>

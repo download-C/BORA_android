@@ -3,6 +3,7 @@ package com.example.borabook;
 import static com.example.borabook.R.layout.*;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import java.util.Map;
 
 public class Fragment2 extends Fragment {
 
+    private AlertDialog dialog;
     SharedPreferences sp;
 
     // iow용 라디오 그룹과 라디오 버튼
@@ -76,6 +78,7 @@ public class Fragment2 extends Fragment {
     int bk_year;
     int bk_month;
     int bk_day;
+    String bk_iow;
     String bk_group;
     String bk_category;
     String bk_memo;
@@ -110,6 +113,7 @@ public class Fragment2 extends Fragment {
                 ArrayAdapter categoryAdapter;
 
                 if (i == R.id.radio1) {
+                    bk_iow= "수입";
                     detail.setBk_iow("수입");
 
                     iowAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.income, android.R.layout.simple_spinner_dropdown_item);
@@ -121,6 +125,7 @@ public class Fragment2 extends Fragment {
                     categorySpinner.setAdapter(categoryAdapter);
 
                 } else if (i == R.id.radio2) {
+                    bk_iow= "지출";
                     detail.setBk_iow("지출");
 
                     iowAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.consume, android.R.layout.simple_spinner_dropdown_item);
@@ -131,6 +136,7 @@ public class Fragment2 extends Fragment {
                     categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     categorySpinner.setAdapter(categoryAdapter);
                 } else {
+                    bk_iow= "이체";
                     detail.setBk_iow("이체");
 
                     iowAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.transfer, android.R.layout.simple_spinner_dropdown_item);
@@ -217,7 +223,7 @@ public class Fragment2 extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 bk_category = categorySpinner.getItemAtPosition(i).toString();
                 Log.i("선택한 카테고리 ", bk_category);
-                if(bk_category!="카테고리 없음") {
+                if(!bk_category.equals("카테고리 없음")){
                     detail.setBk_category(bk_category);
                 } else {
                     detail.setBk_category("");
@@ -231,13 +237,12 @@ public class Fragment2 extends Fragment {
 
         });
 
-        // 선택한 그룹 정보 가져오기 -> 이상함
-
+        // 선택한 그룹 정보 가져오기
         groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 bk_group = groupSpinner.getItemAtPosition(i).toString();
-                Log.i("선택한 그룹 ", bk_group);
+                Log.i("선택한 그룹 ", bk_group.toString());
                 detail.setBk_group(bk_group);
                 Log.i("set group", detail + "");
             }
@@ -307,29 +312,48 @@ public class Fragment2 extends Fragment {
         writeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 유효성 체크
+                if (bk_iow==null){
+                    detail.setBk_money(bk_moneyEt.getText().toString());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    dialog = builder.setMessage("수입/지출/이체를 선택하세요.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
+                if(detail.getBk_group().equals("자산 선택")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    dialog = builder.setMessage("자산을 선택하세요.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
+                if(detail.getBk_category().equals("카테고리 선택")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    dialog = builder.setMessage("카테고리를 선택하세요.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
+                if(bk_moneyEt.getText().toString().trim().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    dialog = builder.setMessage("금액을 입력하세요.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
+                if (bk_memoEt.getText().toString().trim().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    dialog = builder.setMessage("메모를 입력하세요.").setPositiveButton("확인", null).create();
+                    dialog.show();
+                    return;
+                }
 
 //                Toast.makeText(getActivity(), "글쓰기 버튼 누름", Toast.LENGTH_SHORT).show();
-//---------------------------------------정상----------------------------------------                
-              // 유효성 체크
-                if(bk_moneyEt.getText().toString().trim().equals("")){
-//                    Toast.makeText(getActivity(), "금액을 입력해주세요", Toast.LENGTH_SHORT).show();
-                 } else{
-                    detail.setBk_money(bk_moneyEt.getText().toString());
-                    Log.i("set money", detail+"");
-                }
+//---------------------------------------정상----------------------------------------
 
 
-//                if(bk_memoEt!=null) {
-                if (bk_memoEt.getText().toString() != null) {
-                    if (bk_memoEt.getText().toString().trim().equals("")) {
-//                        Toast.makeText(getActivity(), "메모를 입력해주세요", Toast.LENGTH_SHORT).show();
-                    }else {
-                        detail.setBk_memo(bk_memoEt.getText().toString());
-                        Log.i("set memo", detail+"");
-                    }
-                } else {
-//                    Toast.makeText(getActivity(),"메모 널값", Toast.LENGTH_SHORT).show();
-                }
+                detail.setBk_money(bk_moneyEt.getText().toString());
+                detail.setBk_memo(bk_memoEt.getText().toString());
+                Log.i("set memo", detail+"");
+
+
 
                 detail.setBook(book);
 
@@ -346,11 +370,10 @@ public class Fragment2 extends Fragment {
                         }
                     }
                 }).start();
-                Toast toast = Toast.makeText(getActivity(), "가계부 쓰기 성공!", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
 
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                dialog = builder.setMessage("가계부 쓰기 성공😍").setPositiveButton("확인", null).create();
+                dialog.show();
 
                 bk_moneyEt.setText("");
                 bk_memoEt.setText("");
